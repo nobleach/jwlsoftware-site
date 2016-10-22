@@ -1,13 +1,21 @@
 var path = require('path');
+var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+    template: __dirname + '/src/index.html',
+    filename: 'index.html',
+    inject: 'body'
+});
 
 module.exports = {
     entry: {
-        main: ['webpack/hot/dev-server', './src/index.js']
+        app: ['webpack/hot/dev-server', './src/index.js']
     },
 
     output: {
-        filename: "dist/bundle.js"
+        filename: "bundle.js",
+        path: path.resolve(__dirname, 'dist')
     },
 
     module: {
@@ -19,18 +27,11 @@ module.exports = {
 
             {
                 test: /\.js$/,
+                include: __dirname + '/src',
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react']
-                }
+                loader: 'babel'
             }
         ]
-    },
-
-    devServer: {
-        inline: true,
-        hot: true
     },
 
     postcss: function () {
@@ -41,6 +42,7 @@ module.exports = {
 
     plugins: [
         // new webpack.optimize.CommonsChunkPlugin("commons", "commons.js"),
-        new ExtractTextPlugin("[name].css")
+        new ExtractTextPlugin("[name].css"),
+        HTMLWebpackPluginConfig
     ]
 }

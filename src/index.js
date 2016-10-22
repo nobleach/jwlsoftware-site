@@ -1,8 +1,8 @@
-document.write("It works.");
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Menu } from './components/menu/Menu';
 import styles from './base.css';
+console.log(ReactDOM);
 
 class App extends Component {
     render() {
@@ -14,4 +14,7 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('outlet'));
+ReactDOM.render(
+    <App />,
+    document.getElementById('app')
+);
